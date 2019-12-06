@@ -11,7 +11,9 @@
 
 4. **Angular 8**
 
-5. **JetBrains Rider**
+5. **MSSQL (SQL Server 2017)**
+
+6. **JetBrains Rider**
 
 
 
