@@ -1,5 +1,5 @@
 # NTSoftware
-# Đồ án tốt nghiệp fithou của Lê Hồng Ngọc và Nguyễn Anh Tú năm 2019
+# Đồ án tốt nghiệp Fithou của Lê Hồng Ngọc và Nguyễn Anh Tú năm 2019
 
 ## install in ubuntu 18.04
 
