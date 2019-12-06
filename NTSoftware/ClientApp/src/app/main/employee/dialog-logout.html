@@ -1,0 +1,17 @@
+<h6 mat-dialog-title>
+  Cảnh báo
+</h6>
+<div mat-dialog-content>
+  <p>Tài khoản của bạn đã bị khóa. Vui lòng thử lại sau</p>
+</div>
+<div mat-dialog-actions>
+  <button
+    [disabled]="onRequest"
+    mat-raised-button
+    color="warn"
+    mat-button
+    (click)="onSubmit()"
+  >
+    <span>Đồng ý</span>
+  </button>
+</div>

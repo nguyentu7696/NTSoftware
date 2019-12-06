@@ -1,0 +1,360 @@
+<form [formGroup]="formEmployee" class="example-form">
+  <nb-card status="success">
+    <nb-card-header style="background-color: #679c4d;"
+      >Thông tin nhân viên</nb-card-header
+    >
+    <nb-card-body>
+      <!-- Company Name -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          placeholder="Tên nhân viên"
+          [formControl]="formEmployee.controls.name"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formEmployee.controls.name.hasError('required')">
+          Tên nhân viên không được trống
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          matInput
+          style="color: #000000;"
+          placeholder="Tên nhân viên"
+          disabled
+          [value]="employee?.name"
+        />
+      </mat-form-field>
+      <!-- Phone Number -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          maxlength="11"
+          [disabled]="!onRequest"
+          placeholder="Số điện thoại"
+          [formControl]="formEmployee.controls.phoneNumber"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formEmployee.controls.phoneNumber.hasError('required')"
+        >
+          Số điện thoại không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="formEmployee.controls.phoneNumber.hasError('pattern')"
+        >
+          Số điện thoại không đúng định dạng
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          placeholder="Số điện thoại"
+          disabled
+          [value]="employee?.phoneNumber"
+        />
+      </mat-form-field>
+      <!-- IdentityCard -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          placeholder="Số chứng minh nhân dân"
+          [formControl]="formEmployee.controls.identityCard"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formEmployee.controls.identityCard.hasError('required')"
+        >
+          Số chứng minh nhân dân không được trống
+        </mat-error>
+        <mat-error *ngIf="formEmployee.controls.identityCard.hasError('range')">
+          Số chứng minh nhân dân phải là 9 hoặc 12 số
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          placeholder="Số chứng minh nhân dân"
+          disabled
+          [value]="employee?.identityCard"
+        />
+      </mat-form-field>
+
+      <!-- address -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          placeholder="Địa chỉ"
+          [formControl]="formEmployee.controls.address"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formEmployee.controls.address.hasError('required')">
+          Địa chỉ không được trống
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          placeholder="Địa chỉ"
+          disabled
+          [value]="employee?.address"
+        />
+      </mat-form-field>
+      <!-- birthday -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          [matDatepicker]="birthDayPicker"
+          placeholder="Ngày sinh"
+          [formControl]="formEmployee.controls.birthday"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="birthDayPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #birthDayPicker></mat-datepicker>
+        <mat-error
+          *ngIf="formEmployee.controls.birthday.hasError('matDatepickerParse')"
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.birthday.hasError('required') &&
+            !formEmployee.controls.birthday.hasError('matDatepickerParse')
+          "
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="formEmployee.controls.birthday.hasError('dateValidator')"
+        >
+          Tuổi phải từ 15 - 65
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          placeholder="Ngày sinh"
+          disabled
+          [value]="onConvertDate(employee?.birthday)"
+        />
+      </mat-form-field>
+      <!-- Gender -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <mat-select
+          [formControl]="formEmployee.controls.gender"
+          placeholder="Giới tính"
+        >
+          <mat-option value="1"> Nam</mat-option>
+          <mat-option value="0"> Nữ</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formEmployee.controls.gender.hasError('pattern')">
+          Giới tính sai định dạng
+        </mat-error>
+        <mat-error *ngIf="formEmployee.controls.gender.hasError('required')">
+          Vui lòng chọn giới tính
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          placeholder="Giới tính"
+          disabled
+          [value]="convertGender(employee?.gender)"
+        />
+      </mat-form-field>
+    </nb-card-body>
+    <button
+      *ngIf="isEdit === false"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [matTooltip]="'admin.detailCompany.edit' | translate"
+      (click)="toggleEdit()"
+      status="info"
+    >
+      <span> {{ "admin.detailCompany.edit" | translate }}</span>
+    </button>
+    <button
+      *ngIf="isEdit === true"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [matTooltip]="'admin.detailCompany.save' | translate"
+      [disabled]="formEmployee.invalid || onSubmit"
+      (click)="onUpdateEmployee()"
+      status="primary"
+    >
+      <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="indeterminate"
+        *ngIf="onSubmit"
+        strokeWidth="2"
+        diameter="20"
+      ></mat-progress-spinner>
+      <span *ngIf="!onSubmit">
+        {{ "admin.detailCompany.save" | translate }}</span
+      >
+    </button>
+    <button
+      *ngIf="isEdit === true"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [disabled]="onSubmit"
+      [matTooltip]="'admin.detailCompany.cancel' | translate"
+      (click)="toggleEdit()"
+      status="danger"
+    >
+      <span> {{ "admin.detailCompany.cancel" | translate }}</span>
+    </button>
+  </nb-card>
+</form>
+<div class="mat-elevation-z8">
+  <mat-progress-bar
+    *ngIf="onGetContract"
+    mode="indeterminate"
+  ></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource">
+    <!-- Order -->
+    <ng-container matColumnDef="Order">
+      "Function"
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.order" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+    </ng-container>
+    <!-- ContractNumber -->
+    <ng-container matColumnDef="ContractNumber">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.contractNumber" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="onShowDetailContract(element.id)" mat-button>
+          {{ element.contractNumber }}
+        </button>
+      </td>
+    </ng-container>
+    <!-- StartDate -->
+    <ng-container matColumnDef="StartDate">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.startDate" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertDate(element.strartDate) }}
+      </td>
+    </ng-container>
+    <!-- EndDate -->
+    <ng-container matColumnDef="EndDate">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.endDate" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertDate(element.endDate) }}
+      </td>
+    </ng-container>
+    <!--Status -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.status" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertStatus(element.status) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Function">
+      <th
+        style="display: flex;
+                justify-content: flex-end;
+              padding: 10px 10px;"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        <div matRipple matRippleColor="rgba(0,0,0,.2)">
+          <button
+            [disabled]="onRequest"
+            nbButton
+            [matTooltip]="'admin.detailCompany.add' | translate"
+            (click)="onAddContract()"
+            status="primary"
+          >
+            <nb-icon icon="plus-outline"></nb-icon>
+          </button>
+        </div>
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <button
+          (click)="onActiveContract(element.id)"
+          *ngIf="element.status == 'New'"
+          mat-button
+        >
+          Kích hoạt
+        </button>
+        <button
+          (click)="onFinishContract(element.id)"
+          *ngIf="element.status == 'New' || element.status == 'Active'"
+          mat-button
+        >
+          Kết thúc
+        </button>
+        <button
+          [disabled]="onRequest"
+          mat-icon-button
+          *ngIf="element.status === 'New'"
+          [matTooltip]="'admin.lstPrice.delete' | translate"
+          aria-label="Icon Delete"
+          (click)="deleteItem(element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [disabled]="onGetContract"
+    [pageSize]="params.pageSize"
+    [pageIndex]="params.pageIndex - 1"
+    #paginator
+    [length]="totalRow"
+    (page)="onChangePageSize((pageEvent = $event))"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="false"
+  ></mat-paginator>
+</div>
+
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+</style>

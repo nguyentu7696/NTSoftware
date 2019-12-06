@@ -1,0 +1,24 @@
+<h6 mat-dialog-title>
+    Xác nhận xóa
+  </h6>
+  <div mat-dialog-content>
+    <p>Bạn có muốn xóa hợp đồng <strong> {{data.contractNumber}}</strong>? Sau khi xóa không thể hoàn tác!</p>
+  </div>
+  <div mat-dialog-actions>
+    <button [disabled]="onRequest" mat-button [mat-dialog-close] cdkFocusInitial>
+     Hủy
+    </button>
+    <button [disabled]="onRequest" mat-raised-button color="warn" mat-button (click)="onSubmit()">
+      
+      <span *ngIf="!onRequest">Xóa</span>
+      <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onRequest"
+      strokeWidth="2"
+      diameter="35"
+    ></mat-progress-spinner>
+    </button>
+  </div>
+  

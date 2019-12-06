@@ -1,0 +1,343 @@
+<form [formGroup]="formCompany" class="example-form">
+  <nb-card status="success">
+    <nb-card-header style="background-color: #679c4d;">{{
+      "admin.company.companyInfo" | translate
+    }}</nb-card-header>
+    <nb-card-body>
+      <!-- Company Name -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [placeholder]="'admin.company.companyName' | translate"
+          [formControl]="formCompany.controls.companyName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formCompany.controls.companyName.hasError('required')"
+        >
+          {{ "admin.company.emptyCompanyName" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          matInput
+          style="color: #000000;"
+          [placeholder]="'admin.company.companyName' | translate"
+          disabled
+          [value]="company?.companyName"
+        />
+      </mat-form-field>
+      <!-- Phone Number -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          [placeholder]="'admin.company.phoneNumber' | translate"
+          [formControl]="formCompany.controls.phoneNumber"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formCompany.controls.phoneNumber.hasError('required')"
+        >
+          {{ "admin.company.emptyPhoneNumber" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          [placeholder]="'admin.company.phoneNumber' | translate"
+          disabled
+          [value]="company?.phoneNumber"
+        />
+      </mat-form-field>
+      <!-- emailRepresentative -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          [placeholder]="'admin.company.emailRepresentative' | translate"
+          [formControl]="formCompany.controls.emailRepresentative"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formCompany.controls.emailRepresentative.hasError('required')"
+        >
+          Email không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="formCompany.controls.emailRepresentative.hasError('pattern')"
+        >
+        Email sai định dạng
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          [placeholder]="'admin.company.emailRepresentative' | translate"
+          disabled
+          [value]="company?.emailRepresentative"
+        />
+      </mat-form-field>
+      <!-- representativeName -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          [placeholder]="'admin.company.representativeName' | translate"
+          [formControl]="formCompany.controls.representativeName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formCompany.controls.representativeName.hasError('required')"
+        >
+          {{ "admin.company.emptyRepName" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          matInput
+          style="color: #000000;"
+          [placeholder]="'admin.company.representativeName' | translate"
+          disabled
+          [value]="company?.representativeName"
+        />
+      </mat-form-field>
+      <!-- positionRepresentative -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          [disabled]="!onRequest"
+          [placeholder]="'admin.company.positionRepresentative' | translate"
+          [formControl]="formCompany.controls.positionRepresentative"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formCompany.controls.positionRepresentative.hasError('required')
+          "
+        >
+          {{ "admin.company.emptyPosRep" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          [placeholder]="'admin.company.positionRepresentative' | translate"
+          disabled
+          [value]="company?.positionRepresentative"
+        />
+      </mat-form-field>
+      <!-- address -->
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          [disabled]="!onRequest"
+          [placeholder]="'admin.company.address' | translate"
+          [formControl]="formCompany.controls.address"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formCompany.controls.address.hasError('required')">
+          {{ "admin.company.emptyAddressCom" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: #000000;"
+          matInput
+          [placeholder]="'admin.company.address' | translate"
+          disabled
+          [value]="company?.address"
+        />
+      </mat-form-field>
+    </nb-card-body>
+    <button
+      *ngIf="isEdit === false"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [matTooltip]="'admin.detailCompany.edit' | translate"
+      (click)="toggleEdit()"
+      status="info"
+    >
+      <span> {{ "admin.detailCompany.edit" | translate }}</span>
+    </button>
+    <button
+      *ngIf="isEdit === true"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [matTooltip]="'admin.detailCompany.save' | translate"
+      [disabled]="formCompany.invalid || onRequest"
+      (click)="onUpdateCompany()"
+      status="primary"
+    >
+      <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="indeterminate"
+        *ngIf="onRequest"
+        strokeWidth="2"
+        diameter="20"
+      ></mat-progress-spinner>
+      <span *ngIf="!onSubmit">
+        {{ "admin.detailCompany.save" | translate }}</span
+      >
+    </button>
+    <button
+      *ngIf="isEdit === true"
+      style="margin-top: 20px"
+      nbButton
+      fullWidth
+      [matTooltip]="'admin.detailCompany.cancel' | translate"
+      (click)="toggleEdit()"
+      status="danger"
+    >
+      <span> {{ "admin.detailCompany.cancel" | translate }}</span>
+    </button>
+  </nb-card>
+</form>
+<div class="mat-elevation-z8">
+  <mat-progress-bar
+    *ngIf="onGetContract"
+    mode="indeterminate"
+  ></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource">
+    <!-- Order -->
+    <ng-container matColumnDef="Order">
+      "Function"
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.order" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+    </ng-container>
+    <!-- ContractNumber -->
+    <ng-container matColumnDef="ContractNumber">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.contractNumber" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          (click)="onShowDetailContract(element.id)"
+          mat-button
+        >
+          {{ element.contractNumber }}
+        </button>
+      </td>
+    </ng-container>
+    <!-- StartDate -->
+    <ng-container matColumnDef="StartDate">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.startDate" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertDate(element.startDate) }}
+      </td>
+    </ng-container>
+    <!-- EndDate -->
+    <ng-container matColumnDef="EndDate">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.endDate" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertDate(element.endDate) }}
+      </td>
+    </ng-container>
+    <!--Status -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "admin.detailCompany.status" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ onConvertStatus(element.status) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Function">
+      <th
+        style="display: flex;
+          justify-content: flex-end;
+        padding: 10px 10px;"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        <div matRipple matRippleColor="rgba(0,0,0,.2)">
+          <button
+            [disabled]="onRequest"
+            nbButton
+            [matTooltip]="'admin.detailCompany.add' | translate"
+            (click)="onAddContract(null)"
+            status="primary"
+          >
+            <nb-icon icon="plus-outline"></nb-icon>
+          </button>
+        </div>
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <button
+          (click)="onActiveContract(element.id)"
+          *ngIf="element.status == 'New'"
+          mat-button
+        >
+          Kích hoạt
+        </button>
+        <button
+          (click)="onFinishContract(element)"
+          *ngIf="element.status == 'New' || element.status == 'Active'"
+          mat-button
+        >
+          Kết thúc
+        </button>
+        <button
+          [disabled]="onRequest"
+          mat-icon-button
+          *ngIf="element.status ==='New'"
+          [matTooltip]="'admin.lstPrice.delete' | translate"
+          aria-label="Icon Delete"
+          (click)="deleteItem(element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [disabled]="onGetContract"
+    [pageSize]="params.pageSize"
+    [pageIndex]="params.pageIndex - 1"
+    #paginator
+    [length]="totalRow"
+    (page)="onChangePageSize((pageEvent = $event))"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="false"
+  ></mat-paginator>
+</div>
+
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+</style>

@@ -1,0 +1,33 @@
+<input
+  #file
+  type="file"
+  accept="image/*"
+  multiple="false"
+  (change)="onSelectFile($event, file.files)"
+/>
+<img
+  mat-card-image
+  height="200"
+  width="200"
+  *ngIf="pathLogo"
+  [src]="pathLogo"
+  alt="Logo"
+/>
+<button
+  style="margin-top: 20px"
+  nbButton
+  fullWidth
+  [disabled]="pathLogo === undefined || onSubmit"
+  (click)="uploadImage()"
+  status="success"
+>
+  <mat-progress-spinner
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    *ngIf="onSubmit"
+    strokeWidth="2"
+    diameter="20"
+  ></mat-progress-spinner>
+  <span *ngIf="!onSubmit"> {{ "profile.save" | translate }}</span>
+</button>

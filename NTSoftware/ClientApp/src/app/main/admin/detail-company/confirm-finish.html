@@ -1,0 +1,67 @@
+<h6 mat-dialog-title>
+  Hợp đồng chưa đến ngày hết hạn
+</h6>
+<div mat-dialog-content>
+  <p>Vui lòng nhập lý do kết thúc sớm hợp đồng</p>
+  <mat-radio-group
+    (change)="reasonChange($event)"
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="isBreak"
+  >
+    <mat-radio-button class="example-radio-button" value="0">
+      Đã thống nhất hủy hợp lệ
+    </mat-radio-button>
+    <mat-radio-button class="example-radio-button" value="1">
+      Vi phạm
+    </mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field *ngIf="isBreak ==1" class="example-full-width">
+    <input
+      matInput
+      placeholder="Lý do vi phạm"
+      [value]="reasonEnd.value"
+      [formControl]="reasonEnd"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="reasonEnd.hasError('required')">
+      Vui lòng nhập lý do
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button [disabled]="onRequest" mat-button [mat-dialog-close] cdkFocusInitial>
+    Hủy
+  </button>
+  <button
+    [disabled]="onRequest || reasonEnd.invalid"
+    mat-raised-button
+    color="warn"
+    mat-button
+    (click)="onSubmit()"
+  >
+    <span *ngIf="!onRequest">Đồng ý</span>
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onRequest"
+      strokeWidth="2"
+      diameter="35"
+    ></mat-progress-spinner>
+  </button>
+</div>
+<style>
+  .example-full-width {
+    width: 100%;
+  }
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .example-radio-button {
+    margin: 5px;
+  }
+</style>

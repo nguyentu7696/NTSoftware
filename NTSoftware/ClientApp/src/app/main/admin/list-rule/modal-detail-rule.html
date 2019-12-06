@@ -1,0 +1,10 @@
+<nb-card>
+  <nb-card-body >
+        <mat-card
+        style="text-align: center;
+        box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);"
+        >{{ "admin.lstRule.contentRule" | translate }} {{data.typeContractName}}</mat-card
+      >
+      <div [innerHtml]='data.content'></div>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,23 @@
+<h6 mat-dialog-title>
+  {{ "admin.lstCompany.confirm" | translate }}
+</h6>
+<div mat-dialog-content>
+  <p>{{ "admin.lstCompany.confirmDelete" | translate }}<strong> {{data.companyName}}</strong></p>
+</div>
+<div mat-dialog-actions>
+  <button [disabled]="onRequest" mat-button [mat-dialog-close] cdkFocusInitial>
+    {{ "admin.lstCompany.no" | translate }}
+  </button>
+  <button [disabled]="onRequest" mat-raised-button color="warn" mat-button (click)="onSubmit()">
+    
+    <span *ngIf="!onRequest">{{ "admin.lstCompany.yes" | translate }}</span>
+    <mat-progress-spinner
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    *ngIf="onRequest"
+    strokeWidth="2"
+    diameter="35"
+  ></mat-progress-spinner>
+  </button>
+</div>

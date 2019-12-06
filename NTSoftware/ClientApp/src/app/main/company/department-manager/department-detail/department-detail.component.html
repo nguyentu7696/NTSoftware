@@ -1,0 +1,278 @@
+<form [formGroup]="formDepartment" class="example-form">
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #5a5a97;"
+      >Thông tin phòng ban</nb-card-header
+    >
+    <nb-card-body>
+      <!-- Name department -->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Tên phòng ban"
+          disabled
+          [value]="department?.departmentName"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Tên phòng ban"
+          [formControl]="formDepartment.controls.departmentName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formDepartment.controls.departmentName.hasError('required')"
+        >
+          Tên phòng ban không được trống
+        </mat-error>
+      </mat-form-field>
+      <!-- Email department -->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Email"
+          disabled
+          [value]="department?.email"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Email"
+          [formControl]="formDepartment.controls.email"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formDepartment.controls.email.hasError('required')">
+          Email không được trống
+        </mat-error>
+        <mat-error *ngIf="formDepartment.controls.email.hasError('pattern')">
+          Email sai định dạng
+        </mat-error>
+      </mat-form-field>
+      <!-- Phone department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Số điện thoại"
+          disabled
+          [value]="department?.phoneNumber"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Số điện thoại"
+          [formControl]="formDepartment.controls.phoneNumber"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formDepartment.controls.phoneNumber.hasError('required')"
+        >
+          Số điện thoại không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="formDepartment.controls.phoneNumber.hasError('pattern')"
+        >
+          Số điện thoại sai định dạng
+        </mat-error>
+      </mat-form-field>
+      <!-- Address department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Địa chỉ"
+          disabled
+          [value]="department?.address"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Địa chỉ"
+          [formControl]="formDepartment.controls.address"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formDepartment.controls.address.hasError('required')">
+          Địa chỉ không được trống
+        </mat-error>
+      </mat-form-field>
+      <!-- description department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Địa chỉ"
+          disabled
+          [value]="department?.description"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-3-width">
+        <textarea
+          matInput
+          autocomplete="off"
+          placeholder="Mô tả"
+          [formControl]="formDepartment.controls.description"
+          [errorStateMatcher]="matcher"
+        ></textarea>
+        <mat-error
+          *ngIf="formDepartment.controls.description.hasError('required')"
+        >
+          Mô tả không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!--      manager-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Người phụ trách"
+          disabled
+          [value]="convertManagerId(department?.managerId)"
+        />
+      </mat-form-field>
+      <mat-form-field *ngIf="isEdit === true" class="example-half-width">
+        <mat-label> Người phụ trách</mat-label>
+        <mat-select
+        [formControl]="formDepartment.controls.managerId"
+          [(value)]="formDepartment.controls.managerId.value"
+          (selectionChange)="onChangeManager($event)"
+        >
+          <mat-option> {{ "admin.company.select" | translate }}</mat-option>
+          <mat-option *ngFor="let state of employeeList" [value]="state.id">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="formDepartment.controls.managerId.hasError('required')"
+        >
+          Vui lòng chọn phụ trách
+        </mat-error>
+      </mat-form-field>
+      <mat-list *ngIf="isEdit === false" role="list">
+        <h3 mat-subheader>Danh sách nhân viên</h3>
+        <button
+          [queryParams]="{ employee: e.id }"
+          [routerLink]="['../../employee-manager/employee-detail']"
+          *ngFor="let e of lstInDepartment"
+          mat-button
+        >
+          <mat-list-item>
+            <mat-icon mat-list-icon>person_pin</mat-icon>
+            <h4 mat-line>Tên: {{ e.name }}</h4>
+            <p mat-line>SĐT: {{ e.phoneNumber }}</p>
+            <p mat-line>CMND: {{ e.identityCard }}</p>
+          </mat-list-item>
+        </button>
+      </mat-list>
+      <!--      list-employee-->
+      <mat-form-field *ngIf="isEdit === true" class="example-half-width">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip
+            *ngFor="let em of lstSelectedEmployee"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(em)"
+          >
+            {{ em.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Nhân viên phòng ban"
+            #employeeInput
+            (ngModelChange)="onChangeSearch($event)"
+            [formControl]="employeeControl"
+            [value]="employeeControl.value"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-list>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option
+            *ngFor="let employee of employeeSelect"
+            [value]="employee.id"
+          >
+            {{ employee.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </nb-card-body>
+  </nb-card>
+</form>
+
+<button
+  style="margin-top: 20px"
+  nbButton
+  fullWidth
+  *ngIf="isEdit === false"
+  matTooltip="Sửa"
+  (click)="onToggleEdit()"
+  status="success"
+>
+  <span> Sửa</span>
+</button>
+<button
+  *ngIf="isEdit === true"
+  style="margin-top: 20px"
+  [disabled]="onSubmit || formDepartment.invalid"
+  nbButton
+  fullWidth
+  matTooltip="Lưu"
+  (click)="onUpdateDepartment()"
+  status="primary"
+>
+  <span> Lưu</span>
+</button>
+<button
+  *ngIf="isEdit === true"
+  [disabled]="onSubmit"
+  style="margin-top: 20px"
+  nbButton
+  fullWidth
+  matTooltip="Hủy"
+  (click)="onToggleEdit()"
+  status="success"
+>
+  <span> Hủy</span>
+</button>
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+  .example-chip-list {
+    width: 100%;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+</style>

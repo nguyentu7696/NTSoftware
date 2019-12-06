@@ -1,0 +1,141 @@
+<nb-card accent="info">
+  <nb-card-body>
+    <input
+      type="text"
+      #nameCompany
+      [(ngModel)]="params.name"
+      style="margin: 5px;"
+      nbInput
+      (keyup.enter)="onSearch()"
+      [disabled]="onRequest"
+      placeholder="Tên nhân viên"
+    />
+    <input
+      type="text"
+      nbInput
+      #phoneNumber
+      [(ngModel)]="params.contractNumber"
+      style="margin: 5px;"
+      (keyup.enter)="onSearch()"
+      [disabled]="onRequest"
+      placeholder="Mã hợp đồng"
+    />
+    <button
+      style="margin: 5px;"
+      mat-stroked-button
+      mat-button
+      [disabled]="onRequest"
+      (click)="onSearch()"
+      cdkFocusInitial
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </nb-card-body>
+</nb-card>
+
+<div class="mat-elevation-z8">
+  <mat-progress-bar *ngIf="onRequest" mode="indeterminate"></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="EmployeeName">
+      <th mat-header-cell *matHeaderCellDef>
+        Tên nhân viên
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          [disabled]="onRequest"
+          matTooltipPosition="right"
+          [matTooltip]="element.name"
+          mat-button
+          [routerLink]="['../employee-detail']"
+          [queryParams]="{ employee: element.id }"
+        >
+          {{ element.name }}
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="PhoneNumber">
+      <th mat-header-cell *matHeaderCellDef>
+        Số điện thoại
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Address">
+      <th mat-header-cell *matHeaderCellDef>
+        Địa chỉ
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ContractNumber">
+      <th mat-header-cell *matHeaderCellDef>
+        Mã số hợp đồng
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.contractNumber }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Function">
+      <th
+        style="display: flex;
+      justify-content: flex-end;
+    padding: 10px 10px;"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        <div matRipple matRippleColor="rgba(0,0,0,.2)">
+          <button
+            [routerLink]="['../employee-add']"
+            nbButton
+            [matTooltip]="'admin.lstCompany.add' | translate"
+            status="primary"
+          >
+            <nb-icon icon="plus-outline"></nb-icon>
+          </button>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          *ngIf="element.isLocked === false"
+          [disabled]="onRequest"
+          mat-button
+          matTooltip="Khóa"
+          aria-label="Icon Delete"
+          (click)="onLockUser(element.id)"
+        >
+          Khóa
+        </button>
+        <button
+          [disabled]="onRequest"
+          mat-button
+          *ngIf="element.isLocked === true"
+          matTooltip="Mở khóa"
+          aria-label="Icon Delete"
+          (click)="onUnLockUser(element.id)"
+        >
+          Mở khóa
+        </button>
+        <button
+          [disabled]="onRequest"
+          mat-icon-button
+          [matTooltip]="'admin.lstCompany.delete' | translate"
+          aria-label="Icon Delete"
+          (click)="deleteItem(element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [disabled]="onRequest"
+    [pageSize]="params.pageSize"
+    [pageIndex]="params.pageIndex - 1"
+    [length]="totalRow"
+    (page)="onChangePageSize((pageEvent = $event))"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="false"
+  ></mat-paginator>
+</div>

@@ -1,0 +1,275 @@
+<form class="example-form" [formGroup]="formContract" style="overflow: scroll;">
+  <mat-progress-bar *ngIf="onQuery" mode="indeterminate"></mat-progress-bar>
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #1077d6;"
+      >{{ "admin.company.contractInfo" | translate }}</nb-card-header
+    >
+    <nb-card-body>
+      <!-- EmailRepB -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          [placeholder]="'admin.company.emailRepresentativeB' | translate"
+          [formControl]="formContract.controls.emailRepresentativeB"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formContract.controls.emailRepresentativeB.hasError('required')
+          "
+        >
+          {{ "admin.company.emptyEmailB" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="formContract.controls.emailRepresentativeB.hasError('pattern')"
+        >
+          {{ "admin.company.errorEmailB" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <!-- representativeNameB -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          [placeholder]="'admin.company.representativeNameB' | translate"
+          [formControl]="formContract.controls.representativeNameB"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formContract.controls.representativeNameB.hasError('required')"
+        >
+          {{ "admin.company.emptyRepNameB" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <!-- positionRepresentativeB -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          [placeholder]="'admin.company.positionRepresentativeB' | translate"
+          [formControl]="formContract.controls.positionRepresentativeB"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formContract.controls.positionRepresentativeB.hasError('required')
+          "
+        >
+          {{ "admin.company.emptyPositionRepB" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <!-- address -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          [placeholder]="'admin.company.addressCreate' | translate"
+          [formControl]="formContract.controls.address"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="formContract.controls.address.hasError('required')">
+          {{ "admin.company.emptyAddressCreate" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <!-- startDate -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          (ngModelChange)="compareTwoDates()"
+          [matDatepicker]="startDate"
+          [placeholder]="'admin.company.startDate' | translate"
+          [formControl]="formContract.controls.startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-error
+          *ngIf="formContract.controls.startDate.hasError('matDatepickerParse')"
+        >
+          {{ "admin.company.errorStartDate" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formContract.controls.startDate.hasError('required') &&
+            !formContract.controls.startDate.hasError('matDatepickerParse')
+          "
+        >
+          {{ "admin.company.emptyStartDate" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formContract.controls.startDate.hasError('dateVaidator') &&
+            !formContract.controls.startDate.hasError('matDatepickerParse') &&
+            !formContract.controls.startDate.hasError('required')
+          "
+        >
+          {{ "admin.company.startDateGreater" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <!-- endDate -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          (ngModelChange)="compareTwoDates()"
+          autocomplete="off"
+          [matDatepicker]="endDate"
+          [placeholder]="'admin.company.endDate' | translate"
+          [formControl]="formContract.controls.endDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+
+        <mat-error
+          *ngIf="formContract.controls.endDate.hasError('matDatepickerParse')"
+        >
+          {{ "admin.company.errorEndDate" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formContract.controls.endDate.hasError('required') &&
+            !formContract.controls.endDate.hasError('matDatepickerParse')
+          "
+        >
+          {{ "admin.company.emptyEndDate" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="formContract.controls.endDate.hasError('endDateLess')"
+        >
+          {{ "admin.company.endDateLess" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-half-width">
+        <mat-label> Chọn cấp độ thuê</mat-label>
+        <mat-select [matTooltip]="descriptionPrice" (selectionChange)="onChangePrice($event)">
+          <mat-option> {{ "admin.company.select" | translate }}</mat-option>
+          <mat-option *ngFor="let state of priceList" [value]="state.id"
+            >{{ state.optionName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          (ngModelChange)="onSetPrice()"
+          (keypress)="numberOnly($event)"
+          placeholder="Số lượng nhân viên"
+          [formControl]="formContract.controls.maxEmployee"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+          formContract.controls.maxEmployee.hasError(
+              'required'
+            )
+          "
+        >
+          Số lượng nhân viên không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="
+          formContract.controls.maxEmployee.hasError(
+              'pattern'
+            )
+          "
+        >
+          Số lượng nhân viên phải lớn hơn 0
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-half-width">
+        <mat-label> {{ "admin.company.rule" | translate }}</mat-label>
+        <mat-select (selectionChange)="onChangeRule($event)">
+          <mat-option> {{ "admin.company.select" | translate }}</mat-option>
+          <mat-option *ngFor="let state of ruleList" [value]="state.content"
+            >{{ state.typeContractName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-card
+        style="text-align: left;width: 50%;
+              padding: 0px 10px;
+              box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);"
+        >{{ "admin.company.total" | translate }}<strong>
+          {{ formContract.controls.priceContract.value == "" ? 0 :
+          formContract.controls.priceContract.value }} VNĐ</strong
+        ></mat-card
+      >
+      <mat-error
+        style="margin-left: 10px;font-size: 12px;"
+        *ngIf="
+        formContract.controls.priceContract.hasError(
+            'required'
+          ) && formContract.controls.priceContract.touched
+        "
+      >
+        Vui lòng chọn cấp độ thuê
+      </mat-error>
+      <mat-card
+        style="text-align: center;
+              box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);"
+        >{{ "admin.company.contentRule" | translate }}</mat-card
+      >
+      <div [innerHTML]="formContract.controls.contentRule.value"></div>
+      <mat-error
+        *ngIf="
+          formContract.controls.contentRule.hasError('required') &&
+          formContract.controls.contentRule.touched
+        "
+      >
+        {{ "admin.company.emptyContentRule" | translate }}
+      </mat-error>
+    </nb-card-body>
+  </nb-card>
+  <button
+    style="margin-top: 20px"
+    nbButton
+    fullWidth
+    [matTooltip]="'admin.company.add' | translate"
+    [disabled]="formContract.invalid || onSubmit"
+    (click)="onAddContract()"
+    status="success"
+  >
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onSubmit"
+      strokeWidth="2"
+      diameter="20"
+    ></mat-progress-spinner>
+    <span *ngIf="!onSubmit"> {{ "admin.company.save" | translate }}</span>
+  </button>
+</form>
+<style>
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+    max-height: 450px;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+</style>

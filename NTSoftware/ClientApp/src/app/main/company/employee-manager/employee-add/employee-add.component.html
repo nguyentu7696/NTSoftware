@@ -1,0 +1,540 @@
+<form
+  [formGroup]="formEmployee.controls.employeeViewModel"
+  class="example-form"
+>
+  <nb-card status="success">
+    <nb-card-header style="background-color: #679c4d;"
+      >Thông tin đăng nhập</nb-card-header
+    >
+    <nb-card-body>
+      <!-- Email -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          #email
+          (ngModelChange)="onChangeEmail()"
+          placeholder="Email đăng nhập"
+          [formControl]="formEmployee.controls.employeeViewModel.controls.email"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.email.hasError(
+              'pattern'
+            )
+          "
+        >
+          Email không đúng định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.email.hasError(
+              'required'
+            )
+          "
+        >
+          Email không được để trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          type="password"
+          placeholder="Mật khẩu"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.password
+          "
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.password.hasError(
+              'pattern'
+            )
+          "
+        >
+          Mật khẩu phải từ 8 ký tự gồm chữ hoa, chữ thường, ký tự đặc biệt
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.password.hasError(
+              'required'
+            )
+          "
+        >
+          Mật khẩu không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- confirmPassword -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          pattern="{{
+            formEmployee.controls.employeeViewModel.controls.password.value
+          }}"
+          type="password"
+          autocomplete="off"
+          placeholder="Nhập lại mật khẩu"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.confirmPassword
+          "
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.confirmPassword.hasError(
+              'pattern'
+            )
+          "
+        >
+          2 Mật khẩu không khớp
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.confirmPassword.hasError(
+              'required'
+            )
+          "
+        >
+          Nhập lại mật khẩu không được trống
+        </mat-error>
+      </mat-form-field>
+    </nb-card-body>
+  </nb-card>
+</form>
+
+<form
+  [formGroup]="formEmployee.controls.employeeViewModel"
+  class="example-form"
+>
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #5a5a97;"
+      >Thông tin nhân viên</nb-card-header
+    >
+    <nb-card-body>
+      <!-- Name -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Tên nhân viên"
+          [formControl]="formEmployee.controls.employeeViewModel.controls.name"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.name.hasError(
+              'required'
+            )
+          "
+        >
+          Tên nhân viên không được trống
+        </mat-error>
+      </mat-form-field>
+      <!-- Gender -->
+      <mat-form-field class="example-3-width">
+        <mat-select
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.gender
+          "
+          placeholder="Giới tính"
+        >
+          <mat-option value="1"> Nam</mat-option>
+          <mat-option value="0"> Nữ</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.gender.hasError(
+              'pattern'
+            )
+          "
+        >
+          Giới tính sai định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.gender.hasError(
+              'required'
+            )
+          "
+        >
+          Vui lòng chọn giới tính
+        </mat-error>
+      </mat-form-field>
+      <!-- Address -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Địa chỉ"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.address
+          "
+          [errorStateMatcher]="matcher"
+        />
+
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.address.hasError(
+              'required'
+            )
+          "
+        >
+          Địa chỉ không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- birthday -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          [matDatepicker]="birthDayPicker"
+          placeholder="Ngày sinh"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.birthday
+          "
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="birthDayPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #birthDayPicker></mat-datepicker>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'matDatepickerParse'
+            )
+          "
+        >
+          Ngày sinh sai định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'required'
+            ) &&
+            !formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'matDatepickerParse'
+            )
+          "
+        >
+          Ngày sinh không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'dateValidator'
+            ) &&
+            !formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'matDatepickerParse'
+            ) &&
+            !formEmployee.controls.employeeViewModel.controls.birthday.hasError(
+              'required'
+            )
+          "
+        >
+          Tuổi phải từ 15 - 65
+        </mat-error>
+      </mat-form-field>
+      <!-- PhoneNumber -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          maxlength="11"
+          autocomplete="off"
+          (keypress)="numberOnly($event)"
+          placeholder="Số điện thoại"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.phoneNumber
+          "
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.phoneNumber.hasError(
+              'pattern'
+            )
+          "
+        >
+          Số điện thoại sai định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.phoneNumber.hasError(
+              'required'
+            )
+          "
+        >
+          Số điện thoại không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- IdentityCard -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          (keypress)="numberOnly($event)"
+          placeholder="Số chứng minh nhân dân"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.identityCard
+          "
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.identityCard.hasError(
+              'required'
+            )
+          "
+        >
+          Số chứng minh nhân dân không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.identityCard.hasError(
+              'range'
+            )
+          "
+        >
+          Chứng minh nhân dân phải là 9 hoặc 12 số
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Position -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Chức vụ"
+          [formControl]="
+            formEmployee.controls.employeeViewModel.controls.position
+          "
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.employeeViewModel.controls.position.hasError(
+              'required'
+            )
+          "
+        >
+          Chức vụ không được trống
+        </mat-error>
+      </mat-form-field>
+      <!-- Lương -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          (keypress)="numberOnly($event)"
+          placeholder="Lương tháng"
+          [formControl]="formEmployee.controls.salaryContract"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formEmployee.controls.salaryContract.hasError('required')"
+        >
+          Lương tháng phải là số lớn hơn 0
+        </mat-error>
+      </mat-form-field>
+    </nb-card-body>
+  </nb-card>
+</form>
+
+<form [formGroup]="formEmployee">
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #1077d6;">{{
+      "admin.company.contractInfo" | translate
+    }}</nb-card-header>
+    <nb-card-body>
+      <!-- EmailRepB -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Email đại diện bên B"
+          [formControl]="formEmployee.controls.emailRepresentativeB"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="
+            formEmployee.controls.emailRepresentativeB.hasError('required')
+          "
+        >
+          Email đại diện bên B không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="formEmployee.controls.emailRepresentativeB.hasError('pattern')"
+        >
+          Email đại diện bên B không đúng định dạng
+        </mat-error>
+      </mat-form-field>
+      <!-- representativeNameB -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Tên người đại diện bên B"
+          [formControl]="formEmployee.controls.representativeNameB"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formEmployee.controls.representativeNameB.hasError('required')"
+        >
+          Tên người đại diện bên B không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- startDate -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          autocomplete="off"
+          (ngModelChange)="compareTwoDates()"
+          [matDatepicker]="startDate"
+          placeholder="Ngày bắt đầu hợp đồng"
+          [formControl]="formEmployee.controls.strartDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.strartDate.hasError('matDatepickerParse')
+          "
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.strartDate.hasError('required') &&
+            !formEmployee.controls.strartDate.hasError('matDatepickerParse')
+          "
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.strartDate.hasError('dateVaidator') &&
+            !formEmployee.controls.strartDate.hasError('matDatepickerParse') &&
+            !formEmployee.controls.strartDate.hasError('required')
+          "
+        >
+          Ngày bắt đầu phải lớn hơn ngày hiện tại
+        </mat-error>
+      </mat-form-field>
+      <!-- endDate -->
+      <mat-form-field class="example-half-width">
+        <input
+          matInput
+          (ngModelChange)="compareTwoDates()"
+          autocomplete="off"
+          [matDatepicker]="endDate"
+          placeholder="Ngày kết thúc"
+          [formControl]="formEmployee.controls.endDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+
+        <mat-error
+          *ngIf="formEmployee.controls.endDate.hasError('matDatepickerParse')"
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formEmployee.controls.endDate.hasError('required') &&
+            !formEmployee.controls.endDate.hasError('matDatepickerParse')
+          "
+        >
+          Vui lòng nhập đúng định dạng ngày tháng
+        </mat-error>
+        <mat-error
+          *ngIf="formEmployee.controls.endDate.hasError('endDateLess')"
+        >
+          Ngày kết thúc phải lớn hơn ngày bắt đầu
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-half-width">
+        <mat-label> {{ "admin.company.rule" | translate }}</mat-label>
+        <mat-select (selectionChange)="onChangeRule($event)">
+          <mat-option> {{ "admin.company.select" | translate }}</mat-option>
+          <mat-option *ngFor="let state of ruleList" [value]="state.content">{{
+            state.typeContractName
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card
+        style="text-align: center;
+          box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);"
+        >Nội dung điều khoản</mat-card
+      >
+      <div [innerHTML]="formEmployee.controls.contentRule.value"></div>
+      <mat-error
+        *ngIf="
+          formEmployee.controls.contentRule.hasError('required') &&
+          formEmployee.controls.contentRule.touched
+        "
+      >
+        {{ "admin.company.emptyContentRule" | translate }}
+      </mat-error>
+    </nb-card-body>
+  </nb-card>
+</form>
+
+<button
+  style="margin-top: 20px"
+  nbButton
+  fullWidth
+  [matTooltip]="'admin.company.add' | translate"
+  [disabled]="onSubmit || formEmployee.invalid"
+  (click)="onAddEmployee()"
+  status="success"
+>
+  <mat-progress-spinner
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    *ngIf="onSubmit"
+    strokeWidth="2"
+    diameter="20"
+  ></mat-progress-spinner>
+  <span *ngIf="!onSubmit"> {{ "admin.company.save" | translate }}</span>
+</button>
+
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+</style>

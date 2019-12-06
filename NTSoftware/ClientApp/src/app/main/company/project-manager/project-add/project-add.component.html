@@ -1,0 +1,219 @@
+<form [formGroup]="formProject" class="example-form">
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #5a5a97;"
+      >Thông tin dự án</nb-card-header
+    >
+    <nb-card-body>
+      <!-- Name department -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Tên dự án"
+          [formControl]="formProject.controls.projectName"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error
+          *ngIf="formProject.controls.projectName.hasError('required')"
+        >
+          Tên dự án không được trống
+        </mat-error>
+      </mat-form-field>
+
+      <!-- description -->
+      <mat-form-field class="example-3-width">
+        <textarea
+          matInput
+          autocomplete="off"
+          placeholder="Mô tả"
+          [formControl]="formProject.controls.description"
+          [errorStateMatcher]="matcher"
+        ></textarea>
+        <mat-error
+          *ngIf="formProject.controls.description.hasError('required')"
+        >
+          Mô tả không được trống
+        </mat-error>
+      </mat-form-field>
+      <!-- startDate -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          autocomplete="off"
+          (ngModelChange)="compareTwoDates()"
+          [matDatepicker]="startDate"
+          placeholder="Ngày bắt đầu dự án"
+          [formControl]="formProject.controls.startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-error
+          *ngIf="
+            formProject.controls.startDate.hasError('matDatepickerParse')
+          "
+        >
+          Ngày bắt đầu không đúng định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formProject.controls.startDate.hasError('required') &&
+            !formProject.controls.startDate.hasError('matDatepickerParse')
+          "
+        >
+          Ngày bắt đầu không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formProject.controls.startDate.hasError('dateVaidator') &&
+            !formProject.controls.startDate.hasError('matDatepickerParse') &&
+            !formProject.controls.startDate.hasError('required')
+          "
+        >
+          Ngày bắt đầu phải lớn hơn ngày hiện tại
+        </mat-error>
+      </mat-form-field>
+      <!-- endDate -->
+      <mat-form-field class="example-3-width">
+        <input
+          matInput
+          (ngModelChange)="compareTwoDates()"
+          autocomplete="off"
+          [matDatepicker]="endDate"
+          placeholder="Ngày kết thúc"
+          [formControl]="formProject.controls.endDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+
+        <mat-error
+          *ngIf="formProject.controls.endDate.hasError('matDatepickerParse')"
+        >
+          Ngày kết thúc sai định dạng
+        </mat-error>
+        <mat-error
+          *ngIf="
+            formProject.controls.endDate.hasError('required') &&
+            !formProject.controls.endDate.hasError('matDatepickerParse')
+          "
+        >
+          Ngày kết thúc không được trống
+        </mat-error>
+        <mat-error
+          *ngIf="formProject.controls.endDate.hasError('endDateLess')"
+        >
+          Ngày kết thúc phải lớn hơn ngày bắt đầu
+        </mat-error>
+      </mat-form-field>
+      <!--      manager-->
+      <mat-form-field class="example-3-width">
+        <mat-label>Người phụ trách</mat-label>
+        <mat-select
+          [formControl]="formProject.controls.managerId"
+          (selectionChange)="onChangeManager($event)"
+        >
+          <mat-option> {{ "admin.company.select" | translate }}</mat-option>
+          <mat-option *ngFor="let state of employeeList" [value]="state.id">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="formProject.controls.managerId.hasError('required')"
+        >
+          Vui lòng chọn người phụ trách
+        </mat-error>
+      </mat-form-field>
+
+      <!--      list-employee-->
+      <mat-form-field class="example-half-width">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip
+            *ngFor="let em of lstSelectedEmployee"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(em)"
+          >
+            {{ em.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Nhân viên dự án"
+            #employeeInput
+            (ngModelChange)="onChangeSearch($event)"
+            [formControl]="employeeControl"
+            [value]="employeeControl.value"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-list>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option
+            *ngFor="let employee of employeeSelect"
+            [value]="employee.id"
+          >
+            {{ employee.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </nb-card-body>
+  </nb-card>
+</form>
+
+<button
+  style="margin-top: 20px"
+  nbButton
+  fullWidth
+  [disabled]="formProject.invalid || onSubmit"
+  matTooltip="Lưu"
+  (click)="onAddProject()"
+  status="success"
+>
+  <mat-progress-spinner
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    *ngIf="onSubmit"
+    strokeWidth="2"
+    diameter="20"
+  ></mat-progress-spinner>
+  <span *ngIf="!onSubmit"> Lưu</span>
+</button>
+
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+  .example-chip-list {
+    width: 100%;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+
+  .example-half-width {
+    width: calc(50% - 20px);
+    margin: 10px 10px;
+  }
+
+  .example-3-width {
+    width: calc(100% / 3 - 20px);
+    margin: 10px 10px;
+  }
+</style>

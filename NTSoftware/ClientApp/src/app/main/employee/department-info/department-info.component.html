@@ -1,0 +1,92 @@
+<form [formGroup]="formDepartment" class="example-form">
+  <nb-card status="danger">
+    <nb-card-header style="background-color: #5a5a97;"
+    >Thông tin phòng ban
+    </nb-card-header
+    >
+    <nb-card-body>
+      <!-- Name department -->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Tên phòng ban"
+          disabled
+          [value]="department?.departmentName"
+        />
+      </mat-form-field>
+      <!-- Email department -->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Email"
+          disabled
+          [value]="department?.email"
+        />
+      </mat-form-field>
+
+      <!-- Phone department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Số điện thoại"
+          disabled
+          [value]="department?.phoneNumber"
+        />
+      </mat-form-field>
+
+      <!-- Address department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Địa chỉ"
+          disabled
+          [value]="department?.address"
+        />
+      </mat-form-field>
+
+      <!-- description department-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Địa chỉ"
+          disabled
+          [value]="department?.description"
+        />
+      </mat-form-field>
+
+
+      <!--      manager-->
+      <mat-form-field *ngIf="isEdit === false" class="example-3-width">
+        <input
+          style="color: black;"
+          matInput
+          placeholder="Người phụ trách"
+          disabled
+          [value]="convertManagerId(department?.managerId)"
+        />
+      </mat-form-field>
+
+      <mat-list *ngIf="isEdit === false" role="list">
+        <h3 mat-subheader>Danh sách nhân viên</h3>
+        <button
+          *ngFor="let e of lstInDepartment"
+          mat-button
+        >
+          <mat-list-item>
+            <mat-icon mat-list-icon>person_pin</mat-icon>
+            <h4 mat-line>Tên: {{ e.name }}</h4>
+            <p mat-line>SĐT: {{ e.phoneNumber }}</p>
+            <p mat-line>CMND: {{ e.identityCard }}</p>
+          </mat-list-item>
+        </button>
+      </mat-list>
+      <!--      list-employee-->
+
+    </nb-card-body>
+  </nb-card>
+</form>

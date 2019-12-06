@@ -1,0 +1,103 @@
+<form class=" example-full-width">
+  <mat-form-field class="example-full-width" style="margin-bottom: 20px;">
+    <input
+      matInput
+      autocomplete="off"
+      [placeholder]="'admin.lstRule.typeRule' | translate"
+      [formControl]="formRule.controls.typeContractName"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="formRule.controls.typeContractName.hasError('required')">
+      {{ "admin.lstRule.emptyTypeRule" | translate }}
+    </mat-error>
+  </mat-form-field>
+  <editor
+    matInput
+    [formControl]="formRule.controls.content"
+    initialValue=""
+    [init]="{
+      height: 500,
+      entity_encoding: 'raw',
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'image imagetools',
+        'insertdatetime media table paste code help wordcount'
+      ],
+      menubar: 'insert',
+      toolbar:
+        'undo redo | formatselect | bold italic backcolor |insertdatetime|anchor|print|preview|image| \
+                 alignleft aligncenter alignright alignjustify | \
+                 bullist numlist outdent indent | removeformat | help'
+    }"
+  >
+  </editor>
+  <mat-error
+    style="font-size: 13px;margin-top: 10px;"
+    *ngIf="
+      formRule.controls.content.hasError('required') &&
+      formRule.controls.content.touched
+    "
+  >
+    {{ "admin.lstRule.emptyContent" | translate }}
+  </mat-error>
+  <button
+    style="margin-top: 20px"
+    *ngIf="data == null"
+    nbButton
+    fullWidth
+    [disabled]="formRule.invalid || onSubmit"
+    (click)="onAddUpdate()"
+    status="success"
+  >
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onSubmit"
+      strokeWidth="2"
+      diameter="20"
+    ></mat-progress-spinner>
+    <span *ngIf="!onSubmit"> {{ "admin.lstRule.add" | translate }}</span>
+  </button>
+  <button
+    style="margin-top: 20px"
+    *ngIf="data != null"
+    #update
+    (click)="onAddUpdate()"
+    nbButton
+    fullWidth
+    [disabled]="formRule.invalid || onSubmit"
+    status="success"
+  >
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onSubmit"
+      strokeWidth="2"
+      diameter="20"
+    ></mat-progress-spinner>
+    <span *ngIf="!onSubmit"> {{ "admin.lstRule.update" | translate }}</span>
+  </button>
+</form>
+<style>
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,16 @@
+<mat-progress-bar *ngIf="onRequest" mode="indeterminate"></mat-progress-bar>
+
+<h6 mat-dialog-title>
+  Xóa nhận xóa
+</h6>
+<div mat-dialog-content>
+  <p>Bạn có chắc chắn muốn xóa dự án<strong> {{ data.projectName }}</strong></p>
+</div>
+<div mat-dialog-actions>
+  <button [disabled]="onRequest" mat-button [mat-dialog-close] cdkFocusInitial>
+    {{ "admin.lstPrice.no" | translate }}
+  </button>
+  <button [disabled]="onRequest" mat-raised-button color="warn" mat-button (click)="onSubmit()">
+    {{ "admin.lstPrice.yes" | translate }}
+  </button>
+</div>

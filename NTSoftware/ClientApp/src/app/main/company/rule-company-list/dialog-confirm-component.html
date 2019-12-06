@@ -1,0 +1,20 @@
+<h6 mat-dialog-title>
+  {{ "admin.lstRule.confirm" | translate }}
+</h6>
+<div mat-dialog-content>
+  <p>
+    {{
+      "admin.lstRule.confirmDelete"
+          | translate
+    }}<strong>{{data.typeContractName}}</strong>
+  </p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close] cdkFocusInitial>
+    {{ "admin.lstRule.no" | translate }}
+  </button>
+  <button mat-raised-button color="warn" mat-button (click)="onSubmit()">
+    {{ "admin.lstRule.yes" | translate }}
+  </button>
+</div>

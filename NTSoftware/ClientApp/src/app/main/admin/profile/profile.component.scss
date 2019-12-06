@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.example-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.example-half-width {
+  width: calc(50% - 20px);
+  margin: 10px 10px;
+}
+.example-3-width {
+  width: calc(100% / 3 - 20px);
+  margin: 10px 10px;
+}

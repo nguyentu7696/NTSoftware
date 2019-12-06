@@ -1,0 +1,136 @@
+<form class="example-full-width">
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="Tên cấp độ dịch vụ"
+      [formControl]="formPrice.controls.optionName"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error
+      *ngIf="
+        formPrice.controls.optionName.hasError('required') &&
+        formPrice.controls.optionName.value !== null
+      "
+    >
+      Tên cấp độ dịch vụ không được trống
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <textarea
+      matInput
+      autocomplete="off"
+      placeholder="Mô tả"
+      [formControl]="formPrice.controls.description"
+      [errorStateMatcher]="matcher"
+    ></textarea>
+    <mat-error
+      *ngIf="
+        formPrice.controls.description.hasError('required') &&
+        formPrice.controls.description.value !== null
+      "
+    >
+      Mô tả cập độ không được trống
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      maxlength="18"
+      (keypress)="numberOnly($event)"
+      autocomplete="off"
+      placeholder="Tiền theo ngày"
+      [formControl]="formPrice.controls.price"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error
+      *ngIf="
+        formPrice.controls.price.hasError('pattern') ||
+        formPrice.controls.price.value == null
+      "
+    >
+      Tiền theo ngày phải lớn hơn 0
+    </mat-error>
+    <mat-error
+      *ngIf="
+        formPrice.controls.price.hasError('required') &&
+        formPrice.controls.price.value !== null
+      "
+    >
+      Tiền theo ngày không được trống
+    </mat-error>
+  </mat-form-field>
+  <mat-card>
+    Chức năng<mat-card
+      style="box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);"
+      *ngFor="let item of lstFunction"
+    >
+      <mat-checkbox
+        [checked]="onSetChecked(item)"
+        (change)="onChangeChecked($event, item)"
+        class="example-full-width"
+        >{{ item.name }}</mat-checkbox
+      ></mat-card
+    ></mat-card
+  >
+
+  <button
+    style="margin-top: 20px"
+    *ngIf="data == null"
+    nbButton
+    fullWidth
+    [disabled]="formPrice.invalid || onSubmit"
+    (click)="onAddUpdate()"
+    status="success"
+  >
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onSubmit"
+      strokeWidth="2"
+      diameter="20"
+    ></mat-progress-spinner>
+
+    <span *ngIf="!onSubmit"> {{ "admin.lstPrice.add" | translate }}</span>
+  </button>
+  <button
+    style="margin-top: 20px"
+    *ngIf="data != null"
+    #update
+    (click)="onAddUpdate()"
+    nbButton
+    fullWidth
+    [disabled]="formPrice.invalid || onSubmit"
+    status="success"
+  >
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+      *ngIf="onSubmit"
+      strokeWidth="2"
+      diameter="20"
+    ></mat-progress-spinner>
+    <span *ngIf="!onSubmit"> {{ "admin.lstPrice.update" | translate }}</span>
+  </button>
+</form>
+<style>
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+</style>

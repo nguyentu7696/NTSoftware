@@ -1,0 +1,651 @@
+<div class="calibre" id="calibre_link-0">
+  <p class="block_">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+  <p class="block_">Độc lập &ndash; Tự do &ndash; Hạnh phúc</p>
+  <p class="block_1">---------o0o---------</p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_">HỢP ĐỒNG LAO ĐỘNG</p>
+  <p class="block_3">
+    <span class="text_">Số:{{contract?.contractNumber}}</span>
+  </p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_4">
+    Căn cứ Luật Lao động số 10/2012/QH13 đã được Quốc hội khóa 13 thông qua ngày
+    18/06/2012
+  </p>
+  <p class="block_4">
+    Luật sở hữu trí tuệ số 50/2005/QH11 đã được quốc hội khóa 12 thông qua ngày
+    12/12/2005
+  </p>
+  <p class="block_4">Hôm nay, tại công ty {{detailCompany?.address}}</p>
+  <p class="block_4">Chúng tôi gồm:</p>
+  <table class="table_">
+    <tbody class="calibre1">
+      <tr class="calibre2">
+        <td class="td_">
+          <p class="block_5">
+            <span class="text_2"
+              >BÊN A: CÔNG TY {{detailCompany?.companyName}}</span
+            >
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="block_6">
+    <span class="text_5">Đại diện: {{contract?.representativeNameA}}</span>
+  </p>
+  <p class="block_6">
+    <span class="text_5">Chức vụ: {{contract?.positionRepresentativeA}}</span>
+  </p>
+  <p class="block_7">
+    <span class="text_5">Địa chỉ: {{detailCompany?.address}}</span>
+  </p>
+  <p class="block_6">
+    <span class="text_5">Điện thoại: {{detailCompany?.phoneNumber}}</span>
+  </p>
+  <p class="block_6">
+    <span class="text_5">Email: {{detailCompany?.email}}</span>
+  </p>
+  <table class="table_1">
+    <tbody class="calibre1">
+      <tr class="calibre2">
+        <td class="td_">
+          <p class="block_8">
+            <span class="text_7"
+              >BÊN B: Ông/Bà {{contract?.representativeNameB}}</span
+            >
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="block_6">
+    <span class="text_5"
+      >Ngày sinh: {{onConvertDate(detailEmployee?.birthday)}}</span
+    ><span class="text_5"
+      ><span class="tab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Giới tính
+      :{{detailEmployee?.birthday ===1?"Nam":"Nữ"}}</span
+    >
+  </p>
+  <p class="block_6">
+    <span class="text_5">Số CMTND: {{detailEmployee?.identityCard}}</span>
+  </p>
+  <p class="block_4">
+    Email: {{detailEmployee?.email}}
+  </p>
+  <p class="block_6">
+    <span class="text_5">Điện thoại :{{detailEmployee?.phoneNumber}}</span>
+  </p>
+  <p class="block_6">
+    <span class="text_5">Địa chỉ: {{detailEmployee?.address}}</span>
+  </p>
+  <p class="block_6">
+    <span class="text_5"
+      >Tên người đại diện: {{contract?.representativeNameB}}</span
+    >
+  </p>
+  <p class="block_6">
+    <span class="text_5"
+      >Email người đại diện:
+      <span class="tab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>:</span
+    ><span class="text_6"> Ông/bà {{contract?.emailRepresentativeB}}</span>
+  </p>
+  <p class="block_6">
+    <span
+      *ngIf="checkAge(contract?.createdDate,detailEmployee?.birthday)"
+      class="text_5"
+      >Ông/bà {{contract?.representativeNameB}} là đại diện pháp lý cho ông/bà
+      {{detailEmployee?.name}} do ông/bà {{detailEmployee?.name}} là người lao
+      động chưa thành niên</span
+    ><span class="text_8"></span>
+  </p>
+  <p class="block_4">
+    Sau khi thỏa thuận, hai bên thống nhất ký Hợp đồng lao động (HĐLĐ) với các
+    điều khoản sau đây.
+  </p>
+  <p class="block_9">Điều 1: Điều khoản chung</p>
+  <p class="block_4">
+    1. Thời điểm bắt đầu: {{onConvertDateTime(contract?.strartDate)}}
+  </p>
+  <p class="block_6">
+    <span class="text_5"
+      >2. Thời điểm kết thúc : {{onConvertDateTime(contract?.endDate)}}</span
+    >
+  </p>
+  <p class="block_6">
+    <span class="text_5"
+      >3. Địa điểm làm việc: {{detailCompany?.companyName}}</span
+    >
+  </p>
+  <!-- <p class="block_6">
+    <span class="text_5"
+      >4. Chức danh chuyên môn (vị trí công tác): …………………………………</span
+    ><span class="text_8"></span>
+  </p> -->
+  <p class="block_4">4. Nhiệm vụ công việc như sau:</p>
+  <p class="block_4">
+    - Thực hiện công việc theo đúng chức danh chuyên môn của mình dưới sự quản
+    lý, điều hành của người có thẩm quyền.
+  </p>
+  <p class="block_4">
+    - Phối hợp cùng với các bộ phận, phòng ban khác trong Công ty để phát huy
+    tối đa hiệu quả công việc.
+  </p>
+  <p class="block_4">
+    - Hoàn thành những công việc khác tùy thuộc theo yêu cầu của Công ty và theo
+    quyết định của Ban Giám đốc.
+  </p>
+  <p class="block_9">Điều 2: Quyền và nghĩa vụ của người lao động</p>
+  <p class="block_10">1. Quyền của người lao động</p>
+  <p class="block_4">a) Tiền lương và phụ cấp:</p>
+  <p class="block_4">
+    - Mức lương/Thù lao chính: {{contract?.salaryContract}} VNĐ/tháng.
+  </p>
+  <p class="block_4">- Hình thức trả lương: Chuyển khoản/Tiền mặt</p>
+  <p class="block_4">- Thời gian trả lương: Vào ngày 10 của tháng tiếp theo</p>
+  <p class="block_4">b) Các quyền lợi khác:</p>
+  <p class="block_4">
+    - Khen thưởng: Người lao động được khuyến khích bằng vật chất và tinh thần
+    khi có thành tích trong công tác hoặc theo quy định của công ty.
+  </p>
+  <p class="block_4">
+    - Chế độ nâng lương: Theo quy định của Nhà nước và quy chế tiền lương của
+    Công ty.
+  </p>
+  <p class="block_4">- Chế độ nghỉ: Theo quy định chung của Nhà nước.</p>
+  <p class="block_4">+ Nghỉ hàng tuần: Thứ 7 và chủ nhật hàng tuần</p>
+  <p class="block_4">
+    + Nghỉ hàng năm: Những nhân viên được ký Hợp đồng chính thức và có thâm niên
+    công tác 12 tháng thì sẽ được nghỉ phép năm có hưởng lương (mỗi năm 12 ngày
+    phép). Nhân viên có thâm niên làm việc dưới 12 tháng thì thời gian nghỉ hằng
+    năm được tính theo tỷ lệ tương ứng với số thời gian làm việc.
+  </p>
+  <p class="block_4">
+    + Nghỉ ngày Lễ: Các ngày nghỉ lễ theo quy định của pháp luật.
+  </p>
+  <p class="block_4">- Chế độ Bảo hiểm theo quy định của luật lao động</p>
+  <p class="block_4">
+    - Các chế độ được hưởng: Người lao động được hưởng các chế độ ngừng việc,
+    trợ cấp thôi việc hoặc bồi thường theo quy định của pháp luật hiện hành.
+  </p>
+  <p class="block_4">
+    - Được đơn phương chấm dứt hợp đồng theo quy định của pháp luật và nội quy
+    công ty.
+  </p>
+  <p class="block_10">2. Nghĩa vụ của người lao động</p>
+  <div [innerHTML]="contract?.contentRule"></div>
+  <p class="block_9">Điều 3: Quyền và nghĩa vụ của người sử dụng lao động</p>
+  <p class="block_10">1. Quyền của người sử dụng lao động</p>
+  <p class="block_4">
+    a) Điều hành người lao động hoàn thành công việc theo Hợp đồng (bố trí, điều
+    chuyển công việc cho người lao động theo đúng chức năng chuyên môn).
+  </p>
+  <p class="block_4">
+    b) Có quyền tạm thời chuyển người lao động sang làm công việc khác, ngừng
+    việc và áp dụng các biện pháp kỷ luật theo quy định của pháp luật hiện hành
+    và theo nội quy Công ty trong thời gian hợp đồng còn giá trị.
+  </p>
+  <p class="block_4">
+    c) Tạm hoãn, chấm dứt hợp đồng, kỷ luật người lao động theo đúng quy định
+    của pháp luật và nội quy công ty.
+  </p>
+  <p class="block_4">
+    d) Có quyền đòi bồi thường, khiếu nại với cơ quan liên đới để bảo vệ quyền
+    lợi của mình nếu người lao động vi phạm pháp luật hay các điều khoản của hợp
+    đồng này.
+  </p>
+  <p class="block_10">2. Nghĩa vụ của người sử dụng lao động</p>
+  <p class="block_4">
+    - Thực hiện đầy đủ những điều kiện cần thiết đã cam kết trong hợp đồng lao
+    động để người lao động đạt hiệu quả công việc cao. Bảo đảm việc làm cho
+    người lao động theo Hợp đồng đã ký.
+  </p>
+  <p class="block_4">
+    - Thanh toán đầy đủ, đúng thời hạn các chế độ và quyền lợi cho người lao
+    động.
+  </p>
+  <p class="block_9">Điều 4: Chế độ làm việc</p>
+  <p class="block_4">1. Thời gian làm việc:</p>
+  <ul class="list_">
+    <li class="block_11">Từ ngày thứ 2 đến sáng ngày thứ 7:</li>
+  </ul>
+  <ul class="list_1">
+    <li class="block_12">Buổi sáng : 8h00 &ndash; 12h00</li>
+    <li class="block_13">Buổi chiều: 13h30 &ndash; 17h30</li>
+  </ul>
+  <p class="block_4">
+    2. Do tính chất công việc, nhu cầu kinh doanh hay nhu cầu của tổ chức/bộ
+    phận, Công ty có thể cho áp dụng thời gian làm việc linh hoạt. Những người
+    được áp dụng thời gian làm việc linh hoạt có thể không tuân thủ lịch làm
+    việc cố định bình thường mà làm theo ca, nhưng vẫn phải đảm bảo đủ số giờ
+    làm việc theo quy định.
+  </p>
+  <p class="block_4">
+    3. Thiết bị và công cụ làm việc sẽ được Công ty cấp phát tùy theo nhu cầu
+    của công việc.
+  </p>
+  <p class="block_4">
+    4. Điều kiện an toàn và vệ sinh lao động tại nơi làm việc theo quy định của
+    pháp luật hiện hành.
+  </p>
+  <p class="block_9">Điều 5: Những thỏa thuận khác</p>
+  <p class="block_4">
+    Trong quá trình thực hiện hợp đồng nếu một bên có nhu cầu thay đổi nội dung
+    trong hợp đồng phải báo cho bên kia trước ít nhất 03 ngày và ký kết bản Phụ
+    lục hợp đồng theo quy định của pháp luật. Trong thời gian tiến hành thỏa
+    thuận hai bên vẫn tuân theo hợp đồng lao động đã ký kết.
+  </p>
+  <p class="block_6">
+    <span class="text_5"
+      >Người lao động đọc kỹ, hiểu rõ và cam kết thực hiện các điều khoản và quy
+      định ghi tại Hợp đồng lao động.</span
+    ><span class="text_8"></span>
+  </p>
+  <p class="block_9">Điều 6: Điều khoản thi hành</p>
+  <p class="block_4">
+    Những vấn đề về lao động không ghi trong hợp đồng này thì áp dụng theo quy
+    định của thỏa ước tập thể, nội quy lao động và pháp luật lao động.
+  </p>
+  <p class="block_4">
+    Khi hai bên ký kết Phụ lục hợp đồng lao động thì nội dung của Phụ lục hợp
+    đồng lao động cũng có giá trị như các nội dung của bản hợp đồng này.
+  </p>
+  <p class="block_4">
+    Hợp đồng này được lập thành 2 bản có giá trị pháp lý như nhau, mỗi bên giữ 1
+    bản.
+  </p>
+  <p class="block_2">&nbsp;</p>
+  <table class="table_2">
+    <tbody class="calibre1">
+      <tr class="calibre2">
+        <td class="td_1"><p class="block_1">Đại diện Bên A</p></td>
+        <td class="td_1"><p class="block_1">Đại diện Bên B</p></td>
+      </tr>
+      <tr class="calibre2">
+        <td class="td_1"><p class="block_1">(Ký và ghi rõ họ tên)</p></td>
+        <td class="td_1"><p class="block_1">(Ký và ghi rõ họ tên)</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_2">&nbsp;</p>
+  <p class="block_2">&nbsp;</p>
+</div>
+<style>
+  .block_ {
+    display: block;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: center;
+  }
+  .block_1 {
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: center;
+  }
+  .block_2 {
+    color: black;
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_3 {
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: center;
+  }
+  .block_4 {
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_5 {
+    color: black;
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    line-height: 1.15;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_6 {
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_7 {
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: -6.9pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  .block_8 {
+    display: block;
+    font-family: serif;
+    font-size: 0.75em;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_9 {
+    display: block;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_10 {
+    display: block;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_11 {
+    display: list-item;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-left: 36pt;
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_12 {
+    display: list-item;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-left: 72pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .block_13 {
+    display: list-item;
+    line-height: 1.2;
+    margin-bottom: 10pt;
+    margin-left: 72pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .calibre {
+    color: #000;
+    display: block;
+    font-family: "Times New Roman", serif;
+    font-size: 1em;
+    margin-bottom: 0;
+    margin-left: 5pt;
+    margin-right: 5pt;
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .calibre1 {
+    display: table-row-group;
+    line-height: 1.2;
+    vertical-align: middle;
+  }
+  .calibre2 {
+    display: table-row;
+    line-height: 1.2;
+    vertical-align: inherit;
+  }
+  .list_ {
+    display: block;
+    line-height: 1.2;
+    list-style-type: disc;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  .list_1 {
+    display: block;
+    line-height: 1.2;
+    list-style-type: circle;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  .tab {
+    line-height: 1.2;
+    white-space: pre;
+  }
+  .table_ {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1pt;
+    border-collapse: collapse;
+    border-left-color: black;
+    border-left-style: solid;
+    border-left-width: 1pt;
+    border-right-color: black;
+    border-right-style: solid;
+    border-right-width: 1pt;
+    border-spacing: 2px;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1pt;
+    display: table;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-indent: 0;
+    width: 479pt;
+  }
+  .table_1 {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1pt;
+    border-collapse: collapse;
+    border-left-color: black;
+    border-left-style: solid;
+    border-left-width: 1pt;
+    border-right-color: black;
+    border-right-style: solid;
+    border-right-width: 1pt;
+    border-spacing: 2px;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1pt;
+    display: table;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-indent: 0;
+  }
+  .table_2 {
+    border-collapse: collapse;
+    border-spacing: 2px;
+    display: table;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-indent: 0;
+  }
+  .td_ {
+    background-color: #d0cece;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-top-style: hidden;
+    display: table-cell;
+    line-height: 1.2;
+    padding-bottom: 0.5ex;
+    padding-left: 5.75pt;
+    padding-right: 5.75pt;
+    padding-top: 0.5ex;
+    text-align: inherit;
+    vertical-align: top;
+    width: 479pt;
+  }
+  .td_1 {
+    background-color: transparent;
+    display: table-cell;
+    line-height: 1.2;
+    padding-bottom: 0.5ex;
+    padding-left: 5.75pt;
+    padding-right: 5.75pt;
+    padding-top: 0.5ex;
+    text-align: inherit;
+    vertical-align: top;
+    width: 225pt;
+  }
+  .text_ {
+    font-family: "Times New Roman", serif;
+    font-size: 1.33333em;
+    font-style: italic;
+  }
+  .text_1 {
+    font-family: "Arial", sans-serif;
+    font-size: 1em;
+    font-style: italic;
+  }
+  .text_2 {
+    background-color: #c0c0c0;
+    color: #222;
+    font-family: "Times New Roman", serif;
+    font-size: 1.33333em;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  .text_3 {
+    color: #000;
+    font-family: "Arial", sans-serif;
+    font-size: 1em;
+  }
+  .text_4 {
+    color: #000;
+    font-family: "Times New Roman", serif;
+    font-size: 1.33333em;
+    line-height: 1.2;
+  }
+  .text_5 {
+    font-family: "Times New Roman", serif;
+    font-size: 1.33333em;
+  }
+  .text_6 {
+    font-family: "Arial", sans-serif;
+    font-size: 1em;
+  }
+  .text_7 {
+    font-family: "Times New Roman", serif;
+    font-size: 1.33333em;
+    font-weight: bold;
+  }
+  .text_8 {
+    font-family: "Arial", sans-serif;
+    font-size: 0.77778em;
+  }
+
+  @page {
+    margin-bottom: 5pt;
+    margin-top: 5pt;
+  }
+</style>
